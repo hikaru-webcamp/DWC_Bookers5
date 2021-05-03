@@ -8,8 +8,39 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <!--〜〜〜ここからフォロー機能搭載〜〜〜-->
+   <tr>
+    <th>follows</th>
+	  <th><%= link_to user.followings.count, follows_user_path(user.id) %></th>
+	</tr>
+
+	 <tr>
+	   <th>fallowers</th>
+     <th><%=link_to user.followers.count, followers_user_path(user.id) %></th>
+     <!--カウントとリンクを両方やっている-->
+   </tr>
+   <!--〜〜〜ここからフォロー機能搭載〜〜〜-->
 </table>
 
+
+
+<!--フォローボタン追加-->
+<% if current_user != user %>
+<!--if current_user != userで自分をのぞいた人たちのみボタンを表示するような実装にしています。-->
+    <% if user.followed_by?(current_user) %>
+    <div class='row'>
+      <%=link_to "フォロー解除",user_relationships_path(user.id),class: "btn btn-primary", method: :delete %>
+   </div>
+    <% else %>
+    <div class='row'>
+    <%=link_to "フォローする", user_relationships_path(user.id),class: "btn btn-success", method: :post %>
+    </div>
+    <% end %>
+<% else %>
+<!--ユーザー詳細画面のボタン生成-->
 <div class='row'>
   <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
 </div>
+<!--ユーザー詳細画面のボタン生成-->
+<% end %>
+<!--フォローボタン追加-->

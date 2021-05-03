@@ -11,6 +11,18 @@
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
         <td><%= user.name %></td>
+        <td><p>フォロー数：<%= user.followings.count %></p></td>
+        <td><p>フォロワー数：<%= user.followers.count %></p></td>
+    	<td><% if current_user != user %>
+        	<!--自分をフォローする自体は避けたいので、if current_user != userで自分をのぞいた人たちのみボタンを表示するような実装にしています。-->
+        	<% if user.followed_by?(current_user) %>
+        	<p><%=link_to "フォロー解除", user_relationships_path(user.id), method: :delete %></p>
+							<% else %>
+					<p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+							<% end %>
+				    	<% end %>
+							</td>
+
         <td><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></td>
       </tr>
     <% end %>
