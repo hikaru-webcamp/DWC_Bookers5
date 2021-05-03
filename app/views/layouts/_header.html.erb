@@ -23,3 +23,12 @@
     </div>
   </nav>
 </header>
+
+<div class="container">
+    <div class="d-flex align-items-center justify-content-center">　<!--左右中央による記述-->
+ 　　<% if user_signed_in? %>
+    <%= render 'searches/search' %>
+    <!-- 検索窓必須だが、ログインしている人にしか見えなくする -->
+　　<% end %>
+　　</_div>
+ </div>

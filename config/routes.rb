@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to:'homes#top'
   get 'home/about' => 'homes#about'
+  get "search" => "searches#search"
   devise_for :users
     # 順番上にあげた
   resources :users,only: [:show,:index,:edit,:update] do
